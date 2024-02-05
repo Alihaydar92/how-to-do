@@ -7,6 +7,8 @@ import com.alinem.howtodo.repository.TopicRepository;
 import com.alinem.howtodo.service.TopicService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -17,6 +19,10 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@EntityScan(basePackages = "com.alinem.howtodo.entity")
+@EnableJpaRepositories(basePackages = "com.alinem.howtodo.repository")
+
+
 public class TopicServiceImpl implements TopicService {
 
     private final TopicRepository topicRepository;
@@ -26,8 +32,7 @@ public class TopicServiceImpl implements TopicService {
     public TopicResponseDto addTopic(TopicRequestDto requestDto) {
         Topic topic=modelMapper.map(requestDto,Topic.class);
 
-        topic.setCreatedDate(new Date());
-        topic.setCreatedBy("Narmin");
+
 
         topic=topicRepository.save(topic);
 
@@ -55,9 +60,6 @@ public class TopicServiceImpl implements TopicService {
         Optional<Topic> topic = topicRepository.findById(id);
         if(topic.isPresent()){
             topic.get().setName(requestDto.getName());
-            topic.get().setUpdateDate(new Date());
-            topic.get().setUpdatedBy("Narmin");
-
 
             return modelMapper.map(topicRepository.save(topic.get()),TopicResponseDto.class);
         }

@@ -3,17 +3,16 @@ package com.alinem.howtodo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 
-@EntityScan(basePackages = "com.alinem.howtodo.entity")
 
-
-@SpringBootApplication
+@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
+@ComponentScan("com.alinem.howtodo.entity")
 public class HowtodoApplication {
 
     public static void main(String[] args) {
-        System.out.println("hi");
         SpringApplication.run(HowtodoApplication.class, args);
-        System.out.println("hi2");
     }
 
 }
