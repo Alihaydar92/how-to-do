@@ -1,0 +1,16 @@
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  profiles:
+    include:
+      - db
+      - config
+      - dateLocalization
+server:
+  servlet:
+    context-path: /api/v1
+  port: 2324
+
+
+
