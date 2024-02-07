@@ -8,7 +8,8 @@ import org.springframework.context.annotation.ComponentScan;
 
 
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
-@ComponentScan("com.alinem.howtodo.entity")
+
+@ComponentScan("com.alinem.howtodo.*")
 public class HowtodoApplication {
 
     public static void main(String[] args) {

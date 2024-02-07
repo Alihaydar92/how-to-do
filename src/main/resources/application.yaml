@@ -6,7 +6,6 @@ spring:
     include:
       - db
       - config
-      - dateLocalization
 server:
   servlet:
     context-path: /api/v1

@@ -3,7 +3,6 @@ package com.alinem.howtodo.controller;
 import com.alinem.howtodo.dto.requestDto.TopicRequestDto;
 import com.alinem.howtodo.dto.responseDto.TopicResponseDto;
 import com.alinem.howtodo.service.TopicService;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,6 +22,7 @@ import java.util.List;
 @RequestMapping("/topics")
 public class TopicController {
 
+
     private final TopicService topicService;
 
     public TopicController(TopicService topicService) {
@@ -32,6 +32,8 @@ public class TopicController {
 
     @PostMapping
     public ResponseEntity<TopicResponseDto> addTopic(@RequestBody TopicRequestDto requestDto){
+        System.out.println("111");
+        System.out.println(requestDto);
         TopicResponseDto topicResponseDto=topicService.addTopic(requestDto);
         return ResponseEntity.ok(topicResponseDto);
     }

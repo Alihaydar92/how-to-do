@@ -8,6 +8,7 @@ import com.alinem.howtodo.service.TopicService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Service;
 
@@ -19,20 +20,17 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-@EntityScan(basePackages = "com.alinem.howtodo.entity")
-@EnableJpaRepositories(basePackages = "com.alinem.howtodo.repository")
-
-
 public class TopicServiceImpl implements TopicService {
 
     private final TopicRepository topicRepository;
     private final ModelMapper modelMapper;
 
+
     @Override
     public TopicResponseDto addTopic(TopicRequestDto requestDto) {
         Topic topic=modelMapper.map(requestDto,Topic.class);
 
-
+        System.out.println(topic);
 
         topic=topicRepository.save(topic);
 
