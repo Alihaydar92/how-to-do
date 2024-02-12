@@ -58,7 +58,11 @@ public class TopicController {
         TopicResponseDto sectionResponseDto= topicService.getTopic(id);
         return ResponseEntity.ok(sectionResponseDto);
     }
+    @GetMapping("/taqetSensiz")
+    public String taqetSensiz() {
 
+        return "this is not secure, millete achiq";
+    }
 
     @DeleteMapping("{id}")
     public ResponseEntity<Boolean> deleteTopic(@PathVariable("id") Long id){

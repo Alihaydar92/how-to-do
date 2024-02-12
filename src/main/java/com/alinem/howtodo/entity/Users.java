@@ -17,7 +17,9 @@ public class Users implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
+    private String name;
     private String password;
+    private String roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

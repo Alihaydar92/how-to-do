@@ -1,64 +1,57 @@
-//package com.alinem.howtodo.config;
-//
-//import com.alinem.howtodo.service.impl.UserAuthServiceImpl;
-//import lombok.RequiredArgsConstructor;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.http.HttpMethod;
-//import org.springframework.security.authentication.AuthenticationManager;
-//import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-//import org.springframework.security.config.ldap.EmbeddedLdapServerContextSourceFactoryBean;
-//import org.springframework.security.config.ldap.LdapBindAuthenticationManagerFactory;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-//import org.springframework.security.web.SecurityFilterChain;
-//
-//import static org.springframework.security.config.Customizer.withDefaults;
-//
-//@Configuration
-//@EnableWebSecurity
-//@RequiredArgsConstructor
-//public class SecurityConfig  {
-//
-//    @Autowired
-//    private UserAuthServiceImpl userDetailsService;
-//
-//    //
-////    @Autowired
-////    private BCryptPasswordEncoder bCryptPasswordEncoder;
-////
-//    @Bean
-//    public EmbeddedLdapServerContextSourceFactoryBean contextSourceFactoryBean() {
-//        EmbeddedLdapServerContextSourceFactoryBean contextSourceFactoryBean =
-//                EmbeddedLdapServerContextSourceFactoryBean.fromEmbeddedLdapServer();
-//        contextSourceFactoryBean.setPort(0);
-//        return contextSourceFactoryBean;
-//    }
-//
-//    @Bean
-//    AuthenticationManager ldapAuthenticationManager(
-//            BaseLdapPathContextSource contextSource) {
-//        LdapBindAuthenticationManagerFactory factory =
-//                new LdapBindAuthenticationManagerFactory(contextSource);
-//        factory.setUserDnPatterns("uid={0},ou=people");
-//        factory.setUserDetailsContextMapper(new PersonContextMapper());
-//        return factory.createAuthenticationManager();
-//    }
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeHttpRequests((authz) -> authz
-//                        .anyRequest().authenticated()
-//                )
-//                .httpBasic(withDefaults());
-//        return http.build();
-//    }
-//
-//    @Bean
-//    public BCryptPasswordEncoder encodePWD(){
-//        return new BCryptPasswordEncoder();
-//    }
-//}
+package com.alinem.howtodo.config;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
+
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+//        UserDetails admin = User.withUsername("Heydar")
+//                .password(encoder.encode("Narmin"))
+//                .roles("ADMIN")
+//                .build();
+//        UserDetails user = User.withUsername("Narmin")
+//                .password(passwordEncoder.encode("Heydar"))
+//                .roles("USER")
+//                .build();
+
+        return new UserInfoUserDetailsService();
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+        return http.csrf().disable()
+                .authorizeHttpRequests().requestMatchers("/topics/taqetSensiz").permitAll()
+                .and()
+                .authorizeHttpRequests().requestMatchers("/topics/**")
+                .authenticated().and().formLogin().and().build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+    @Bean
+    public AuthenticationProvider authenticationProvider(){
+        DaoAuthenticationProvider authenticationProvider=new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(userDetailsService());
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        return authenticationProvider;
+    }
+
+}
