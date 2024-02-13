@@ -1,4 +1,5 @@
 package com.alinem.howtodo.config;
+import com.alinem.howtodo.service.UserInfoUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -36,7 +37,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http.csrf().disable()
-                .authorizeHttpRequests().requestMatchers("/topics/taqetSensiz").permitAll()
+                .authorizeHttpRequests().requestMatchers("/topics/taqetSensiz","/users").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/topics/**")
                 .authenticated().and().formLogin().and().build();

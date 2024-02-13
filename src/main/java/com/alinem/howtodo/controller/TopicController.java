@@ -4,6 +4,7 @@ import com.alinem.howtodo.dto.requestDto.TopicRequestDto;
 import com.alinem.howtodo.dto.responseDto.TopicResponseDto;
 import com.alinem.howtodo.service.TopicService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +40,7 @@ public class TopicController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<List<TopicResponseDto>> getTopics(){
         List<TopicResponseDto> topicResponseDtos =topicService.getTopics();
         return ResponseEntity.ok(topicResponseDtos);
@@ -59,6 +61,7 @@ public class TopicController {
         return ResponseEntity.ok(sectionResponseDto);
     }
     @GetMapping("/taqetSensiz")
+
     public String taqetSensiz() {
 
         return "this is not secure, millete achiq";

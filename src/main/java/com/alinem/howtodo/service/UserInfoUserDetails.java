@@ -1,5 +1,6 @@
-package com.alinem.howtodo.config;
+package com.alinem.howtodo.service;
 
+import com.alinem.howtodo.entity.UserInfo;
 import com.alinem.howtodo.entity.Users;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,12 +14,12 @@ import java.util.stream.Collectors;
 public class UserInfoUserDetails implements UserDetails {
 
 
-    private String name;
+    private String username;
     private String password;
     private List<GrantedAuthority> authorities;
 
-    public UserInfoUserDetails(Users userInfo) {
-        name=userInfo.getName();
+    public UserInfoUserDetails(UserInfo userInfo) {
+        username=userInfo.getUsername();
         password=userInfo.getPassword();
         authorities= Arrays.stream(userInfo.getRoles().split(","))
                 .map(SimpleGrantedAuthority::new)
@@ -37,7 +38,7 @@ public class UserInfoUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return name;
+        return username;
     }
 
     @Override
