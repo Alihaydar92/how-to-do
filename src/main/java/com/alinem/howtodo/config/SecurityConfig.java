@@ -36,11 +36,12 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        return http.csrf().disable()
+        http.csrf().disable();
+        return http.httpBasic().and()
                 .authorizeHttpRequests().requestMatchers("/topics/taqetSensiz","/users").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/topics/**")
-                .authenticated().and().formLogin().and().build();
+                .authenticated().and().build();
     }
 
     @Bean
