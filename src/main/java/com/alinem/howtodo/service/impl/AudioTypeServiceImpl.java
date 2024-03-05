@@ -4,6 +4,7 @@ import com.alinem.howtodo.dto.requestDto.AudioTypeRequestDto;
 import com.alinem.howtodo.dto.responseDto.AudioTypeResponseDto;
 import com.alinem.howtodo.dto.responseDto.TopicResponseDto;
 import com.alinem.howtodo.entity.AudioType;
+import com.alinem.howtodo.entity.Blog;
 import com.alinem.howtodo.entity.Topic;
 import com.alinem.howtodo.repository.AudioTypeRepository;
 import com.alinem.howtodo.service.AudioTypeService;
@@ -49,6 +50,12 @@ public class AudioTypeServiceImpl implements AudioTypeService {
             return modelMapper.map(section.get(),AudioTypeResponseDto.class);
         }
         throw new RuntimeException("AudioType tapilmadi") ;
+    }
+
+    @Override
+    public AudioType getAudioTypeSelf(Long id) {
+        return audioTypeRepository.findById(id).orElseThrow(()->
+                new IllegalArgumentException("cannot find blog with id:" +id));
     }
 
     @Override

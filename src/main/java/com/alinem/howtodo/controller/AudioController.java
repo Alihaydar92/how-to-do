@@ -1,8 +1,9 @@
 package com.alinem.howtodo.controller;
 
-import com.alinem.howtodo.dto.requestDto.AudioTypeRequestDto;
-import com.alinem.howtodo.dto.responseDto.AudioTypeResponseDto;
-import com.alinem.howtodo.service.AudioTypeService;
+
+import com.alinem.howtodo.dto.requestDto.AudioRequestDto;
+import com.alinem.howtodo.dto.responseDto.AudioResponseDto;
+import com.alinem.howtodo.service.AudioService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,50 +19,45 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/audioTypes")
+@RequestMapping("/audios")
 public class AudioController {
+    private final AudioService audioService;
 
-
-    private final AudioTypeService audioTypeService;
-
-    public AudioController(AudioTypeService audioTypeService) {
-        this.audioTypeService = audioTypeService;
+    public AudioController(AudioService audioService) {
+        this.audioService = audioService;
     }
 
-
     @PostMapping
-    public ResponseEntity<AudioTypeResponseDto> addAudioType(@RequestBody AudioTypeRequestDto requestDto){
-        System.out.println("111");
-        System.out.println(requestDto);
-        AudioTypeResponseDto audioTypeResponseDto=audioTypeService.addAudioType(requestDto);
-        return ResponseEntity.ok(audioTypeResponseDto);
+    public ResponseEntity<AudioResponseDto> addAudio(@RequestBody AudioRequestDto requestDto){
+        AudioResponseDto audioResponseDto=audioService.addAudio(requestDto);
+        return ResponseEntity.ok(audioResponseDto);
     }
 
     @GetMapping
-    public ResponseEntity<List<AudioTypeResponseDto>> getAudioTypes(){
-        List<AudioTypeResponseDto> audioTypeResponseDtos =audioTypeService.getAudioTypes();
-        return ResponseEntity.ok(audioTypeResponseDtos);
+    public ResponseEntity<List<AudioResponseDto>> getAudios(){
+        List<AudioResponseDto> audioResponseDtos =audioService.getAudios();
+        return ResponseEntity.ok(audioResponseDtos);
     }
 
 
 
-    @PutMapping("{id}")
-    public ResponseEntity<AudioTypeResponseDto> updateAudioType(@PathVariable("id") Long id,
-                                                            @RequestBody AudioTypeRequestDto requestDto){
-        AudioTypeResponseDto audioTypeResponseDto= audioTypeService.updateAudioType(id,requestDto);
-        return ResponseEntity.ok(audioTypeResponseDto);
-    }
 
     @GetMapping("{id}")
-    public ResponseEntity<AudioTypeResponseDto> getSection(@PathVariable("id") Long id){
-        AudioTypeResponseDto sectionResponseDto= audioTypeService.getAudioType(id);
-        return ResponseEntity.ok(sectionResponseDto);
+    public ResponseEntity<AudioResponseDto> getAudio(@PathVariable("id") Long id){
+        AudioResponseDto audioResponseDto= audioService.getAudio(id);
+        return ResponseEntity.ok(audioResponseDto);
     }
 
+    @PutMapping("{id}")
+    public ResponseEntity<AudioResponseDto> updateAudio(@PathVariable("id") Long id,
+                                                                @RequestBody AudioRequestDto requestDto){
+        AudioResponseDto audioResponseDto= audioService.updateAudio(id,requestDto);
+        return ResponseEntity.ok(audioResponseDto);
+    }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Boolean> deleteAudioType(@PathVariable("id") Long id){
-        Boolean resultAudioType=audioTypeService.deleteAudioType(id);
-        return ResponseEntity.ok(resultAudioType);
+    public ResponseEntity<Boolean> deleteAudio(@PathVariable("id") Long id){
+        Boolean resultAudio=audioService.deleteAudio(id);
+        return ResponseEntity.ok(resultAudio);
     }
 }

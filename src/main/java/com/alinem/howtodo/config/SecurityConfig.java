@@ -41,7 +41,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests().requestMatchers("/topics/taqetSensiz","/users").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/topics/**")
-                .authenticated().and().build();
+                .authenticated().and()
+                .authorizeHttpRequests().requestMatchers("/auth").authenticated().and().build();
     }
 
     @Bean

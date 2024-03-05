@@ -53,6 +53,11 @@ public class TopicServiceImpl implements TopicService {
         throw new RuntimeException("Topic tapilmadi") ;
     }
 
+
+    @Override
+    public Topic getTopicSelf(Long id) {
+        return topicRepository.findById(id).orElseThrow(()->new IllegalArgumentException("could not find topic with id:"+id));
+    }
     @Override
     public TopicResponseDto updateTopic(Long id, TopicRequestDto requestDto) {
         Optional<Topic> topic = topicRepository.findById(id);
