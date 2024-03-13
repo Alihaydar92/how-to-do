@@ -84,11 +84,10 @@ public class AudioServiceImpl implements AudioService {
             audio.setBlog(blog);
         }
         if(requestDto.getAudioTypeId()!=null){
-            AudioType audioType=audioTypeService.getAudioTypeSelf(requestDto.getBlogId());
+            AudioType audioType=audioTypeService.getAudioTypeSelf(requestDto.getAudioTypeId());
             audio.setAudioType(audioType);
         }
         audio.setUrl(requestDto.getUrl());
-
         audioRepository.save(audio);
         return modelMapper.map(audio,AudioResponseDto.class);
     }

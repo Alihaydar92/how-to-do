@@ -77,7 +77,35 @@ public class AllBlogServiceImpl implements AllBlogService {
 
     @Override
     public AllBlogResponseDto updateAllBlog(Long id, AllBlogRequestDto requestDto) {
-        return null;
+        AllBlogResponseDto allBlogResponseDto = new AllBlogResponseDto();
+
+        List<AudioResponseDto> audioResponseDtoList = new ArrayList<>();
+        List<VideoResponseDto> videoResponseDtoList = new ArrayList<>();
+        List<PhotoResponseDto> photoResponseDtoList = new ArrayList<>();
+
+
+        BlogResponseDto blog =blogService.updateBlog(id,requestDto.getBlog());
+        allBlogResponseDto.setBlog(blog);
+        for (AudioRequestDto audioRequestDto:requestDto.getAudioRequestDtoLists()){
+            audioRequestDto.setBlogId(blog.getId());
+            AudioResponseDto  audioResponseDto= audioService.updateAudio(audioRequestDto.getId(),audioRequestDto);
+            audioResponseDtoList.add(audioResponseDto);
+        }
+        allBlogResponseDto.setAudioResponseDtoList(audioResponseDtoList);
+        for (VideoRequestDto videoRequestDto:requestDto.getVideoRequestDtoList()){
+            videoRequestDto.setBlogId(blog.getId());
+            VideoResponseDto videoResponseDto= videoService.updateVideo(videoRequestDto.getId(),videoRequestDto);
+            videoResponseDtoList.add(videoResponseDto);
+        }
+        allBlogResponseDto.setVideoResponseDtoList(videoResponseDtoList);
+        for (PhotoRequestDto photoRequestDto:requestDto.getPhotoRequestDtoList()){
+            photoRequestDto.setBlogId(blog.getId());
+            PhotoResponseDto photoResponseDto= photoService.updatePhoto(photoRequestDto.getId(),photoRequestDto);
+            photoResponseDtoList.add(photoResponseDto);
+        }
+        allBlogResponseDto.setPhotoResponseDtoList(photoResponseDtoList);
+
+        return allBlogResponseDto;
     }
 
     @Override

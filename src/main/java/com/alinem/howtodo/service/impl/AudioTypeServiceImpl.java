@@ -55,7 +55,7 @@ public class AudioTypeServiceImpl implements AudioTypeService {
     @Override
     public AudioType getAudioTypeSelf(Long id) {
         return audioTypeRepository.findById(id).orElseThrow(()->
-                new IllegalArgumentException("cannot find blog with id:" +id));
+                new IllegalArgumentException("cannot find AudioType with id:" +id));
     }
 
     @Override

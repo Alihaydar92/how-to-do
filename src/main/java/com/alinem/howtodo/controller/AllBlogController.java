@@ -56,13 +56,13 @@ public class AllBlogController {
 //        return ResponseEntity.ok(blogResponseDto);
 //    }
 //
-//    @PutMapping("{id}")
-//    public ResponseEntity<BlogResponseDto> updateBlog(@PathVariable("id") Long id,
-//                                                                @RequestBody BlogRequestDto requestDto){
-//        BlogResponseDto blogResponseDto= blogService.updateBlog(id,requestDto);
-//        return ResponseEntity.ok(blogResponseDto);
-//    }
-//
+    @PutMapping("{id}")
+    public ResponseEntity<AllBlogResponseDto> updateAllBlog(@PathVariable("id") Long id,
+                                                                @RequestBody AllBlogRequestDto requestDto){
+        AllBlogResponseDto allBlogResponseDto= allBlogService.updateAllBlog(id,requestDto);
+        return ResponseEntity.ok(allBlogResponseDto);
+    }
+
 //    @DeleteMapping("{id}")
 //    public ResponseEntity<Boolean> deleteBlog(@PathVariable("id") Long id){
 //        Boolean resultBlog=blogService.deleteBlog(id);
