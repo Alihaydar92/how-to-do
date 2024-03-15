@@ -9,6 +9,7 @@ import com.alinem.howtodo.dto.responseDto.AudioResponseDto;
 import com.alinem.howtodo.dto.responseDto.BlogResponseDto;
 import com.alinem.howtodo.dto.responseDto.PhotoResponseDto;
 import com.alinem.howtodo.dto.responseDto.VideoResponseDto;
+import com.alinem.howtodo.entity.Audio;
 import com.alinem.howtodo.entity.Blog;
 import com.alinem.howtodo.service.AllBlogService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -67,12 +69,45 @@ public class AllBlogServiceImpl implements AllBlogService {
 
     @Override
     public List<AllBlogResponseDto> getAllBlogs() {
-        return null;
+return  null;
     }
 
     @Override
     public AllBlogResponseDto getAllBlog(Long id) {
-        return null;
+
+
+        AllBlogResponseDto allBlogResponseDto = new AllBlogResponseDto();
+
+
+
+        BlogResponseDto blogResponseDto = blogService.getBlog(id);
+        allBlogResponseDto.setBlog(blogResponseDto);
+        allBlogResponseDto.setAudioResponseDtoList(audioService.getAudioByBlogId(id));
+        allBlogResponseDto.setVideoResponseDtoList(videoService.getVideoByBlogId(id));
+        allBlogResponseDto.setPhotoResponseDtoList(photoService.getPhotoByBlogId(id));
+
+
+//        for (AudioRequestDto audioRequestDto:requestDto.getAudioRequestDtoLists()){
+//            audioRequestDto.setBlogId(blog.getId());
+//            AudioResponseDto  audioResponseDto= audioService.addAudio(audioRequestDto);
+//            audioResponseDtoList.add(audioResponseDto);
+//        }
+//        allBlogResponseDto.setAudioResponseDtoList(audioResponseDtoList);
+//        for (VideoRequestDto videoRequestDto:requestDto.getVideoRequestDtoList()){
+//            videoRequestDto.setBlogId(blog.getId());
+//            VideoResponseDto videoResponseDto= videoService.addVideo(videoRequestDto);
+//            videoResponseDtoList.add(videoResponseDto);
+//        }
+//        allBlogResponseDto.setVideoResponseDtoList(videoResponseDtoList);
+//        for (PhotoRequestDto photoRequestDto:requestDto.getPhotoRequestDtoList()){
+//            photoRequestDto.setBlogId(blog.getId());
+//            PhotoResponseDto photoResponseDto= photoService.addPhoto(photoRequestDto);
+//            photoResponseDtoList.add(photoResponseDto);
+//        }
+
+        return allBlogResponseDto;
+
+
     }
 
     @Override
@@ -110,6 +145,6 @@ public class AllBlogServiceImpl implements AllBlogService {
 
     @Override
     public Boolean deleteAllBlog(Long id) {
-        return null;
+      return  null;
     }
 }

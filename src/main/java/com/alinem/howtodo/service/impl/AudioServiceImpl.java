@@ -103,5 +103,17 @@ public class AudioServiceImpl implements AudioService {
         return false;
     }
 
+    @Override
+    public List<AudioResponseDto> getAudioByBlogId(Long blogId) {
+        List<AudioResponseDto> list = new ArrayList<>();
+
+
+        audioRepository.findAllByBlogId(blogId).stream().forEach(obj->{
+            list.add(modelMapper.map(obj,AudioResponseDto.class));
+        });
+        System.out.println(list.get(0));
+        return list;
+    }
+
 
 }

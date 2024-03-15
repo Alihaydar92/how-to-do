@@ -50,11 +50,11 @@ public class AllBlogController {
 //        return ResponseEntity.ok(blogResponseDtos);
 //    }
 //
-//    @GetMapping("{id}")
-//    public ResponseEntity<BlogResponseDto> getBlog(@PathVariable("id") Long id){
-//        BlogResponseDto blogResponseDto= blogService.getBlog(id);
-//        return ResponseEntity.ok(blogResponseDto);
-//    }
+    @GetMapping("{id}")
+    public ResponseEntity<AllBlogResponseDto> getAllBlog(@PathVariable("id") Long id){
+        AllBlogResponseDto allBlogResponseDto= allBlogService.getAllBlog(id);
+        return ResponseEntity.ok(allBlogResponseDto);
+    }
 //
     @PutMapping("{id}")
     public ResponseEntity<AllBlogResponseDto> updateAllBlog(@PathVariable("id") Long id,

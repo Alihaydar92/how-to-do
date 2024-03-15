@@ -19,7 +19,7 @@ public class VideoResponseDto {
 
 
 
-    private BlogResponseDto blog;
+    //private BlogResponseDto blog;
 }
 
 

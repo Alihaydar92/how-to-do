@@ -40,7 +40,7 @@ public class SecurityConfig {
         return http.httpBasic().and()
                 .authorizeHttpRequests().requestMatchers("/topics/taqetSensiz","/users").permitAll()
                 .and()
-                .authorizeHttpRequests().requestMatchers("/topics/**","/allBlogs/**")
+                .authorizeHttpRequests().requestMatchers("/topics/**","/allBlogs/**","/blogs/**")
                 .authenticated().and()
                 .authorizeHttpRequests().requestMatchers("/auth").authenticated().and().build();
     }

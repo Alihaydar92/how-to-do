@@ -1,6 +1,7 @@
 package com.alinem.howtodo.service;
 
 import com.alinem.howtodo.dto.requestDto.PhotoRequestDto;
+import com.alinem.howtodo.dto.responseDto.AudioResponseDto;
 import com.alinem.howtodo.dto.responseDto.PhotoResponseDto;
 import com.alinem.howtodo.entity.Photo;
 
@@ -18,5 +19,8 @@ public interface PhotoService {
     PhotoResponseDto updatePhoto(Long id, PhotoRequestDto requestDto);
 
     Boolean deletePhoto(Long id);
+
+
+    List<PhotoResponseDto> getPhotoByBlogId(Long blogId);
 
 }

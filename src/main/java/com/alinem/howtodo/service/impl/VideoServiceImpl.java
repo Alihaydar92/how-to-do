@@ -1,6 +1,7 @@
 package com.alinem.howtodo.service.impl;
 
 import com.alinem.howtodo.dto.requestDto.VideoRequestDto;
+import com.alinem.howtodo.dto.responseDto.AudioResponseDto;
 import com.alinem.howtodo.dto.responseDto.VideoResponseDto;
 import com.alinem.howtodo.entity.Video;
 import com.alinem.howtodo.entity.Blog;
@@ -92,6 +93,18 @@ public class VideoServiceImpl implements VideoService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<VideoResponseDto> getVideoByBlogId(Long blogId) {
+        List<VideoResponseDto> list = new ArrayList<>();
+
+        System.out.println("ho0");
+        videoRepository.findAllByBlogId(blogId).stream().forEach(obj->{
+            list.add(modelMapper.map(obj,VideoResponseDto.class));
+        });
+        System.out.println(list.get(0));
+        return list;
     }
 
 

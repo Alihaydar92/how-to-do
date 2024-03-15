@@ -1,6 +1,7 @@
 package com.alinem.howtodo.service.impl;
 
 import com.alinem.howtodo.dto.requestDto.PhotoRequestDto;
+import com.alinem.howtodo.dto.responseDto.AudioResponseDto;
 import com.alinem.howtodo.dto.responseDto.PhotoResponseDto;
 import com.alinem.howtodo.entity.Photo;
 import com.alinem.howtodo.entity.Blog;
@@ -93,6 +94,18 @@ public class PhotoServiceImpl implements PhotoService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<PhotoResponseDto> getPhotoByBlogId(Long blogId) {
+        List<PhotoResponseDto> list = new ArrayList<>();
+
+        System.out.println("ho0");
+        photoRepository.findAllByBlogId(blogId).stream().forEach(obj->{
+            list.add(modelMapper.map(obj,PhotoResponseDto.class));
+        });
+        System.out.println(list.get(0));
+        return list;
     }
 
 

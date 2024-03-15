@@ -18,7 +18,7 @@ public class AudioResponseDto {
 
     private String url;
 
-    private BlogResponseDto blog;
+    //private BlogResponseDto blog;
 
     private AudioTypeResponseDto audioType;
 }

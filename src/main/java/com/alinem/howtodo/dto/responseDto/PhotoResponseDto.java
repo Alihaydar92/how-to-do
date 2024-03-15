@@ -20,7 +20,7 @@ public class PhotoResponseDto {
 
 
 
-    private BlogResponseDto blog;
+    //private BlogResponseDto blog;
 }
 
 

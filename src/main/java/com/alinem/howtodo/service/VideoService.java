@@ -1,6 +1,7 @@
 package com.alinem.howtodo.service;
 
 import com.alinem.howtodo.dto.requestDto.VideoRequestDto;
+import com.alinem.howtodo.dto.responseDto.AudioResponseDto;
 import com.alinem.howtodo.dto.responseDto.VideoResponseDto;
 import com.alinem.howtodo.entity.Video;
 
@@ -17,6 +18,9 @@ public interface VideoService {
     Video getVideoSelf(Long id);
     VideoResponseDto updateVideo(Long id, VideoRequestDto requestDto);
 
+
     Boolean deleteVideo(Long id);
+
+    List<VideoResponseDto> getVideoByBlogId(Long blogId);
 
 }
